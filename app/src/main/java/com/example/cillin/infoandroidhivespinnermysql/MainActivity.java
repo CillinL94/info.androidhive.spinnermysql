@@ -2,6 +2,7 @@ package com.example.cillin.infoandroidhivespinnermysql;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,12 +23,15 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 public class MainActivity extends Activity implements OnItemSelectedListener {
 
     private Button btnAddNewCategory;
     private TextView txtCategory;
-    private Spinner spinnerFood;
+    public Spinner spinnerFood;
+    //public String spinnerValue;
+
     // array list for spinner adapter
     private ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
@@ -79,7 +83,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
     /**
      * Adding spinner data
      * */
-    private void populateSpinner() {
+    public void populateSpinner() {
         List<String> lables = new ArrayList<String>();
 
         txtCategory.setText("");
@@ -87,6 +91,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
         for (int i = 0; i < categoriesList.size(); i++) {
             lables.add(categoriesList.get(i).getName());
         }
+
 
         // Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
@@ -98,7 +103,11 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 
         // attaching data adapter to spinner
         spinnerFood.setAdapter(spinnerAdapter);
+
+        //String text = spinnerFood.getSelectedItem().toString();
+
     }
+
 
     /**
      * Async task to get all food categories
@@ -155,7 +164,6 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
     /**
@@ -239,6 +247,11 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
                 getApplicationContext(),
                 parent.getItemAtPosition(position).toString() + " Selected" ,
                 Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(MainActivity.this, Map.class);
+        String text = spinnerFood.getSelectedItem().toString();
+        intent.putExtra("SPINNER_KEY", text);
+        startActivity(intent);
 
     }
 
