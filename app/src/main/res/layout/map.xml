@@ -12,8 +12,7 @@
         android:src="@drawable/map_image"
         android:contentDescription="@string/map"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/mainmenu"
@@ -24,12 +23,9 @@
         android:text="Main Menu" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:id="@+id/Text1"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:id="@+id/textView"
         android:layout_below="@+id/imageView"
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView" />

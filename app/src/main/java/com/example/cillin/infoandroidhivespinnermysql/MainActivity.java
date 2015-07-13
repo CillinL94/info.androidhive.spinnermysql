@@ -10,6 +10,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -47,11 +52,19 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*spinnerFood.post(new Runnable() {
+            public void run() {
+                spinnerFood.setOnItemSelectedListener();
+            }
+        });*/
+
         btnAddNewCategory = (Button) findViewById(R.id.btnAddNewCategory);
         spinnerFood = (Spinner) findViewById(R.id.spinFood);
-        txtCategory = (TextView) findViewById(R.id.txtCategory);
+        //txtCategory = (TextView) findViewById(R.id.txtCategory);
 
         categoriesList = new ArrayList<Category>();
+
+        spinnerFood.setSelection(0, false);
 
         // spinner item select listener
         spinnerFood.setOnItemSelectedListener(this);
@@ -61,13 +74,34 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 
             @Override
             public void onClick(View v) {
-                if (txtCategory.getText().toString().trim().length() > 0) {
+                if (spinnerFood.getSelectedItem().toString().length() > 0) {
+
+                    /*DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    //get current date time with Date()
+                    Date date = new Date();
+                    dateFormat.format(date);
+                    Intent inte = new Intent(MainActivity.this, Map.class);
+                    inte.putExtra("DATE_KEY", date);
+                    startActivity(inte);
+
+
+                    //get current date time with Calendar()
+                    Calendar cal = Calendar.getInstance();
+                    dateFormat.format(cal.getTime());
+                    Intent inten = new Intent(MainActivity.this, Map.class);
+                    inten.putExtra("TIME_KEY", cal);
+                    startActivity(inten);*/
 
                     // new category name
-                    String newCategory = txtCategory.getText().toString();
+                    String newCategory = spinnerFood.getSelectedItem().toString();
 
                     // Call Async task to create new category
                     new AddNewCategory().execute(newCategory);
+                    Intent intent = new Intent(MainActivity.this, Map.class);
+                    String text = spinnerFood.getSelectedItem().toString();
+                    intent.putExtra("SPINNER_KEY", text);
+                    //setSpinnerSelectionWithoutCallingListener(spinnerFood, null);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter category name", Toast.LENGTH_SHORT)
@@ -86,7 +120,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
     public void populateSpinner() {
         List<String> lables = new ArrayList<String>();
 
-        txtCategory.setText("");
+        //txtCategory.setText("");
 
         for (int i = 0; i < categoriesList.size(); i++) {
             lables.add(categoriesList.get(i).getName());
@@ -104,10 +138,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
         // attaching data adapter to spinner
         spinnerFood.setAdapter(spinnerAdapter);
 
-        //String text = spinnerFood.getSelectedItem().toString();
-
     }
-
 
     /**
      * Async task to get all food categories
@@ -243,16 +274,11 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
+
         Toast.makeText(
                 getApplicationContext(),
                 parent.getItemAtPosition(position).toString() + " Selected" ,
                 Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(MainActivity.this, Map.class);
-        String text = spinnerFood.getSelectedItem().toString();
-        intent.putExtra("SPINNER_KEY", text);
-        startActivity(intent);
-
     }
 
     @Override

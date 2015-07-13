@@ -5,21 +5,6 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New food category" />
-
-    <EditText android:id="@+id/txtCategory"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button android:id="@+id/btnAddNewCategory"
-        android:text="Create"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"/>
-
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Select food category"/>
@@ -27,5 +12,11 @@
     <Spinner android:id="@+id/spinFood"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
+
+    <Button android:id="@+id/btnAddNewCategory"
+        android:text="Create"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"/>
 
 </LinearLayout>

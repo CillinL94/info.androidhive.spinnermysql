@@ -31,15 +31,49 @@ public class Map extends Activity
         e.setText(text);*/
 
         String spinnerString;
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            Bundle bundle = getIntent().getExtras();
-            if (bundle.getString("SPINNER_KEY") != null) {
-                spinnerString = bundle.getString("SPINNER_KEY");
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                spinnerString= null;
+            } else {
+                spinnerString= extras.getString("SPINNER_KEY");
             }
+        } else {
+            spinnerString= (String) savedInstanceState.getSerializable("SPINNER_KEY");
         }
 
-        //TextView e = (EditText) findViewById (R.id.Text1);
-        //e.setText(spinnerString);
+        TextView a = (TextView)findViewById(R.id.textView);
+        a.setText(spinnerString);
+
+       /* String dateString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                dateString= null;
+            } else {
+                dateString= extras.getString("DATE_KEY");
+            }
+        } else {
+            dateString= (String) savedInstanceState.getSerializable("DATE_KEY");
+        }
+
+        TextView b = (TextView)findViewById(R.id.textView2);
+        b.setText(dateString);
+
+        String timeString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                timeString= null;
+            } else {
+                timeString= extras.getString("TIME_KEY");
+            }
+        } else {
+            timeString= (String) savedInstanceState.getSerializable("TIME_KEY");
+        }
+
+        TextView c = (TextView)findViewById(R.id.textView3);
+        c.setText(timeString);*/
 
         Button mainm = (Button)findViewById(R.id.mainmenu);
         mainm.setOnClickListener(new View.OnClickListener() {
