@@ -30,4 +30,13 @@
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView" />
 
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="40dp" />
+
 </RelativeLayout>

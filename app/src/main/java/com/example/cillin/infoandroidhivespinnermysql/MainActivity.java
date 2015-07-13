@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
     private Button btnAddNewCategory;
     private TextView txtCategory;
     public Spinner spinnerFood;
-    //public String spinnerValue;
+    public TextView timeInput;
 
     // array list for spinner adapter
     private ArrayList<Category> categoriesList;
@@ -52,15 +53,9 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*spinnerFood.post(new Runnable() {
-            public void run() {
-                spinnerFood.setOnItemSelectedListener();
-            }
-        });*/
-
         btnAddNewCategory = (Button) findViewById(R.id.btnAddNewCategory);
         spinnerFood = (Spinner) findViewById(R.id.spinFood);
-        //txtCategory = (TextView) findViewById(R.id.txtCategory);
+        timeInput = (TextView) findViewById(R.id.textView2);
 
         categoriesList = new ArrayList<Category>();
 
@@ -82,15 +77,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
                     dateFormat.format(date);
                     Intent inte = new Intent(MainActivity.this, Map.class);
                     inte.putExtra("DATE_KEY", date);
-                    startActivity(inte);
-
-
-                    //get current date time with Calendar()
-                    Calendar cal = Calendar.getInstance();
-                    dateFormat.format(cal.getTime());
-                    Intent inten = new Intent(MainActivity.this, Map.class);
-                    inten.putExtra("TIME_KEY", cal);
-                    startActivity(inten);*/
+                    startActivity(inte);*/
 
                     // new category name
                     String newCategory = spinnerFood.getSelectedItem().toString();
@@ -217,11 +204,26 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
         @Override
         protected Void doInBackground(String... arg) {
 
-            String newCategory = arg[0];
+            //String newCategory = arg[0];
+            String newCategory = spinnerFood.getSelectedItem().toString();
+
+            // Create an instance of SimpleDateFormat used for formatting
+            // the string representation of date (month/day/year)
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+            // Get the date today using Calendar object.
+            Date today = Calendar.getInstance().getTime();
+            // Using DateFormat format method we can create a string
+            // representation of a date with the defined format.
+            String reportDate = df.format(today);
+            Intent inte = new Intent(MainActivity.this, Map.class);
+            inte.putExtra("DATE_KEY", reportDate);
+            startActivity(inte);
 
             // Preparing post params
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("name", newCategory));
+            params.add(new BasicNameValuePair("time", reportDate));
 
             ServiceHandler serviceClient = new ServiceHandler();
 
